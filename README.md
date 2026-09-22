@@ -55,3 +55,20 @@
 | 16 | Containment FINAL | `16_Containment` | `docker ps empty`, `date -u 16:08:55`, `down` |
 
 ## 4. Chain of Custody
+03:14:05 Acquisition 2029834b (01) -> 03:15 Extraction (02) -> 03:20 DNS Fix 9d65ed5a (03,04)
+-> 03:30 Network 7504e96a (05) -> 03:32 Mapping 7064=10.151.0.71 b579=10.152.0.71 (06)
+-> 12:25 Code e8a77eb1 PID59:9090 (07-15) -> 16:08:55 Containment empty (16)
+
+
+## 5. Commands
+```bash
+wget Labsetup.zip --no-check-certificate
+docker-compose build # fail 127.0.0.53
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+docker-compose build # 9d65ed5a
+docker-compose up # 7504e96a
+docker ps; docker exec -it b579 /bin/zsh; ps aux; ss -tunap
+sha256sum worm.py; find -name "badfile*"
+docker-compose down; date -u
+
+6. Mapping7064d925363c10.151.0.71 Attackerb579b916f32210.152.0.71 VictimAnalyst: Simonadeka | Hash: e8a77eb1 | Status: CONTAINED
